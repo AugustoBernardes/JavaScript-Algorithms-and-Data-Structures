@@ -1,4 +1,4 @@
-function linkedList(){
+function LinkedList(){
     const Node = function(element){
         this.element = element
         this.next = null
@@ -30,8 +30,28 @@ function linkedList(){
         // Add a element at a specific position
     }
 
-    this.removeAt = function(position){
+    this.removeAt = function(position){ // 1 
         // Remove a element froma specific position
+        if(position > -1 && position < lenght){ // true
+            let current = head,// node1 = { element: joao, next: node2}
+            previous,
+            index = 0
+
+            if(position === 0){ //false
+                head = current.next 
+            }else{
+                while(index < position){ // 1 < 1 - false
+                    previous = current // node1 = { element: joao, next: node2}
+                    current = current.next // node 2{ element: Jose, next: node3 }
+                    index++
+                }
+                previous.next = current.next // node1.next = José - node2.next - Ana (Convert node1 next to node2 next )
+            }
+            lenght--
+            return current.element
+        }else{
+            return null
+        }
     }
 
     this.remove = function(element){
@@ -54,6 +74,7 @@ function linkedList(){
         string = ''
 
         while(current){
+
             string += current.element + ' '
             current  = current.next
         }
@@ -66,3 +87,12 @@ function linkedList(){
         console.log(this.toString())
     }
 }
+
+const linkedList = new LinkedList()
+
+linkedList.append('Joao')
+linkedList.append('Jose')
+linkedList.append('Maria')
+linkedList.print()
+linkedList.removeAt(1)
+linkedList.print()
