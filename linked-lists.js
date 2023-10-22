@@ -26,8 +26,32 @@ function LinkedList(){
         lenght++
     }
 
-    this.insert =  function(element){
+    this.insert =  function(element, position){
         // Add a element at a specific position
+        if(position >= 0 && position <= lenght){
+            let node = new Node(element),
+            current = head,
+            previous,
+            index = 0
+
+            if(position == 0){
+                node.next = head
+                head = node
+            }else{
+                while(index < position){
+                    previous = current
+                    current = current.next
+
+                    index++
+                }
+                node.next = current
+                previous.next = node
+            }
+            lenght++
+            return true
+        }else{
+            return false
+        }
     }
 
     this.removeAt = function(position){ // 1 
@@ -56,19 +80,40 @@ function LinkedList(){
 
     this.remove = function(element){
         // Remove the choosen element
+        let index = this.indexOf(element)
+        return this.removeAt(index)
     }
 
     this.indexOf = function(element){
         // return element position
+        let current = head,
+        index = 0
+
+        while(current){
+            if(element === current.element){
+                return index
+            }
+            index++
+            current = current.next
+        }
+        return -1
     }
 
     this.isEmpty = function(){
         // Return if instance is empty or not
+        return lenght === 0
     }
 
     this.size = function(){
         // Return instance lenght
+        return lenght
     }
+
+    this.getHead = function(){
+        // Return head data
+        return head
+    }
+
     this.toString = function(){
         let current = head,
         string = ''
@@ -94,5 +139,14 @@ linkedList.append('Joao')
 linkedList.append('Jose')
 linkedList.append('Maria')
 linkedList.print()
-linkedList.removeAt(1)
+linkedList.insert('Carlos',0)
 linkedList.print()
+linkedList.insert('Chefe',1)
+linkedList.print()
+console.log({removed: linkedList.remove('Chefe')})
+linkedList.print()
+console.log({removed: linkedList.remove('Maria')})
+linkedList.print()
+console.log(linkedList.isEmpty())
+console.log(linkedList.size())
+console.log(linkedList.getHead())
