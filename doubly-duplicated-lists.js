@@ -5,7 +5,7 @@ function DoublyLinkedList(){
         this.prev = null
     }  
 
-    let lenght =   0
+    let lenght = 0
     let head = null
     let tail = null
 
@@ -23,6 +23,7 @@ function DoublyLinkedList(){
             while(current.next){
                 current = current.next
             }
+            node.prev = current
             current.next = node
             tail = node
         }
@@ -75,6 +76,38 @@ function DoublyLinkedList(){
 
     this.removeAt = function(position){ // 1 
        //dll
+       if(position > -1 && position < lenght){
+            let current = head,
+            previous,
+            index = 0
+            
+            if(position === 0){
+                head = current.next
+
+                if(lenght === 1){
+                    tail = null
+                }else{
+                    head.prev = null
+                }
+            }else if(position === lenght - 1){
+                current = tail
+                tail = current.prev
+                tail.next = null
+            }else{
+                while(index < position){
+                    previous = current
+                    current = current.next
+
+                    index++
+                }
+                previous.next = current.next
+                current.next.prev = previous
+            }
+            lenght--
+            return current.element
+       }else{
+            return null
+       }
     }
 
     this.remove = function(element){
@@ -140,4 +173,10 @@ doublyLinkedList.append('Maria')
 doublyLinkedList.insert('Carlos',0)
 doublyLinkedList.insert('Carlos1',0)
 doublyLinkedList.insert('Chefe',2)
+doublyLinkedList.print()
+doublyLinkedList.removeAt(0)
+doublyLinkedList.print()
+doublyLinkedList.removeAt(4)
+doublyLinkedList.print()
+doublyLinkedList.removeAt(2)
 doublyLinkedList.print()
