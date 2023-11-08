@@ -56,25 +56,112 @@ function BinarySearchTree(){
 
     this.remove = function(key){
         // Remove the key
+        root = removeNode(root, key)
+    }
+
+    let removeNode = function(node, key){
+        if(node === null){
+            return null
+        }
+        if(key < node.key){
+            node.left = removeNode(node.left, key)
+            return node
+        }else if(key > node.key){
+            node.right = removeNode(node.right, key)
+            return node
+        }else{
+            if(node.left === null && node.right === null){
+                node = null
+                return node
+            }
+            if(node.left === null){
+                node = node.right
+                return node
+            }else if(node.right === null){
+                node = node.left
+                return node
+            }
+
+            let aux = findMinNode(node.right)
+            node.key = aux.key
+            node.right = removeNode(node.right, aux.key)
+            return node
+
+        }
+    }
+
+    let findMinNode = function(node){
+        while(node && node.left !== null){
+            node = node.left
+        }
+        return node
     }
 
     this.min = function(){
         // Return smaller key
+        return minNode(root)
     }
 
+    let minNode = function(node){
+        if(node){
+            while(node && node.left !== null){
+                node = node.left
+            }
+            return node.key
+        }
+        return null
+    }
     this.max = function(){
         // Return bigger key
+        return maxNode(root)
     }
 
-    this.inOrderTraverse = function(){
+    let maxNode = function(node){
+        if(node){
+            while(node && node.right !== null){
+                node = node.right
+            }
+            return node.key
+        }
+        return null
+    }
+
+    this.inOrderTraverse = function(callback){
         // Visit all tree Nodes using a route in order
+        inOrderTraverseNode(root, callback)
     }
 
-    this.preOrderTraverse = function(){
+    let inOrderTraverseNode = function(node, callback){
+        if(node !== null){
+            inOrderTraverseNode(node.left, callback)
+            callback(node.key)
+            inOrderTraverseNode(node.right, callback)
+        }
+    }
+
+    this.preOrderTraverse =  function(callback){
         // Visit all tree Nodes using a pre order route
+        preOrderTraverseNode(root, callback)
     }
 
-    this.postOrderTraverse = function(){
-          // Visit all tree Nodes using a post order route
+    let preOrderTraverseNode = function(node, callback){
+        if(node !== null){
+            callback(node.key)
+            preOrderTraverseNode(node.left, callback)
+            preOrderTraverseNode(node.right, callback)
+        }
     }
+
+    this.postOrderTraverse = function(callback){
+          // Visit all tree Nodes using a post order route
+          postOrderTraverseNode(root, callback)
+    }
+    let postOrderTraverseNode = function(node, callback){
+        if(node !== null){
+            postOrderTraverse(node.left, callback)
+            postOrderTraverse(node.right, callback)
+            callback(node.key)
+        }
+    }
+
 }
