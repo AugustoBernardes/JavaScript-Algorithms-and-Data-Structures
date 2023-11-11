@@ -1,3 +1,5 @@
+// Remenber: Always smaller values goes to left and bigger goes to right
+
 function BinarySearchTree(){
     let Node = function(key){
         this.key = key
@@ -19,7 +21,7 @@ function BinarySearchTree(){
     }
 
     let insertNode = function(node, newNode){
-        if(newNode.key < node.key){
+        if(node.key > newNode.key){
             if(node.left === null){
                 node.left = newNode
             }else{
@@ -158,10 +160,32 @@ function BinarySearchTree(){
     }
     let postOrderTraverseNode = function(node, callback){
         if(node !== null){
-            postOrderTraverse(node.left, callback)
-            postOrderTraverse(node.right, callback)
+            postOrderTraverseNode(node.left, callback)
+            postOrderTraverseNode(node.right, callback)
             callback(node.key)
         }
     }
 
 }
+
+function printNode(value){
+    console.log(value)
+}
+
+const tree = new BinarySearchTree()
+
+tree.insert(11)
+tree.insert(7)
+tree.insert(8)
+tree.insert(15)
+tree.insert(5)
+tree.insert(3)
+tree.insert(9)
+tree.insert(2)
+
+// console.log(tree.search(2))
+// console.log(tree.min())
+// console.log(tree.search(15))
+// console.log(tree.max())
+
+tree.postOrderTraverse(printNode)
