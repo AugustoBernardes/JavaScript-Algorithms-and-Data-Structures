@@ -182,10 +182,16 @@ tree.insert(5)
 tree.insert(3)
 tree.insert(9)
 tree.insert(2)
+tree.insert(4)
 
 // console.log(tree.search(2))
 // console.log(tree.min())
 // console.log(tree.search(15))
 // console.log(tree.max())
 
-tree.postOrderTraverse(printNode)
+tree.inOrderTraverse(printNode)
+
+console.log('------')
+tree.remove(5)
+
+tree.inOrderTraverse(printNode)
