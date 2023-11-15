@@ -130,6 +130,7 @@ function Graph(){
         return color
     }
 
+    // Breadth First Search - Busca por largura
     this.bfs = function(v,callback){
         let color = initializeColor(),
         queue = new Queue()
@@ -152,9 +153,34 @@ function Graph(){
             }
             // When color black is setted is because vertex was already found (He will not be used anymore)
             color[currentVertex] = 'black'
+            // Print current vertex
             callback(currentVertex)
         }
+    }
 
+    this.dfs = function(callback){
+        let color = initializeColor()
+        for(let i = 0; i < vertices.length; i++){
+            if(color[vertices[i]] === 'white'){
+                dfsVisit(vertices[i], color, callback)
+            }
+        }
+    }
+
+    let dfsVisit = function(u, color, callback){
+        color[u] = 'grey'
+        callback(u)
+
+        let neighbors = adjList.get(u)
+
+        for(let i = 0; i < neighbors.length; i++){
+            let w = neighbors[i]
+
+            if(color[w] === 'white'){
+                dfsVisit(w, color, callback)
+            }
+        }
+        color[u] = 'black'
     }
 }
 
@@ -171,16 +197,15 @@ for(let i = 0; i < myVertices.length ; i++){
 graph.addEdge('A','B')
 graph.addEdge('A','C')
 graph.addEdge('A','D')
-graph.addEdge('C','E')
+graph.addEdge('C','D')
 graph.addEdge('C','G')
-graph.addEdge('C','G')
+graph.addEdge('D','G')
 graph.addEdge('D','H')
-graph.addEdge('D','E')
-graph.addEdge('C','F')
+graph.addEdge('B','E')
+graph.addEdge('B','F')
 graph.addEdge('E','I')
 
-console.log(graph.toString())
-
-
-graph.bfs(myVertices[0], printNode)
+// console.log(graph.toString())
+// graph.bfs(myVertices[0], printNode)
+graph.dfs(printNode)
 
