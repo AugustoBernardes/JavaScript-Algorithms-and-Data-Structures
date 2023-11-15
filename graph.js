@@ -158,6 +158,7 @@ function Graph(){
         }
     }
 
+    // Depth First Search - Busca por profundidade
     this.dfs = function(callback){
         let color = initializeColor()
         for(let i = 0; i < vertices.length; i++){
