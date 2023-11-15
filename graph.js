@@ -168,6 +168,21 @@ function Graph(){
         }
     }
 
+
+    // Stack - Vem emplilhando os metodos até chegar no node mais fundo
+    // I - white -> grey (neighbors = [E])
+    // E - white -> grey (neighbors = [B,I])
+    // B - white -> grey (neighbors = [A,E,F])
+    // A - white -> grey (neighbors = [B,C,D])
+
+    // Depois vem desemplilhando e caindo fora do for pois não existe mais vizinhos que não foram visitados
+    // I - grey -> black - Remove da pilha
+    // E - grey -> black - Remove da pilha
+    // B - grey -> black  - Remove da pilha
+    // A - grey -> black - Continua nos proximos vizinhos ([C,D])
+    
+    // console -> A, B, E, I
+
     let dfsVisit = function(u, color, callback){
         color[u] = 'grey'
         callback(u)
