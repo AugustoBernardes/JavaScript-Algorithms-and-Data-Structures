@@ -131,6 +131,23 @@ function Graph(){
     }
 
     // Breadth First Search - Busca por largura
+
+    // Valor inicial - (A, printNode)
+    // Inicia color -> Todas as vertices são brancas
+    // Inicia uma fila -> []
+    // Adiciona A para a Fila [A]
+    // Se fila não é vazia faz o processo
+    // Remove o primeiro valor da fila (FIFO - First In First Out)
+    // Retorna valor removido
+    // Busca seus vizinhos
+    // Trocar cor de A - (Node removido da fila) para cinza
+    // Para cada vizinho ve se cor é branca se for adiciona a fila
+    // Vizinhos de A = [B,C,D]
+    // fila = [B]
+    // fila = [B,C]
+    // fila = [B,C,D]
+    // Troca cor de A para (black)
+    // Continua processo com os dados da fila
     this.bfs = function(v,callback){
         let color = initializeColor(),
         queue = new Queue()
@@ -167,7 +184,6 @@ function Graph(){
             }
         }
     }
-
 
     // Stack - Vem emplilhando os metodos até chegar no node mais fundo
     // I - white -> grey (neighbors = [E])
