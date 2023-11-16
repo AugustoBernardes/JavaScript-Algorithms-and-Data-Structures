@@ -58,6 +58,74 @@ function ArrayList(){
         }
     }
 
+    // [ 5,4,3,2,1]
+    this.mergeSort = function(){
+        array = mergeSortRec(array)
+    }
+
+    let mergeSortRec = function(array){
+        let length = array.length
+
+        if(length === 1){
+            return array
+        }
+
+        let mid = Math.floor(length / 2)
+        let left = array.slice(0, mid)
+        let right = array.slice(mid,length)
+
+        return merge(mergeSortRec(left), mergeSortRec(right))
+    }
+
+    let merge = function(left, right){
+        let result = [];
+        let il = 0
+        let ir = 0
+
+        while(il < left.length && ir < right.length){
+            if(left[il] < right[ir]){
+                result.push(left[il++])
+            }else{
+                result.push(right[ir++])
+            }
+        }
+
+        while(il < left.length){
+            result.push(left[il++])
+        }
+
+        while(ir < right.length){
+            result.push(right[ir++])
+        }
+
+        return result
+
+    }
+
+    this.quickSortFunc = function(){
+        array = quickSort(array)
+    }
+
+    let quickSort = function(arr){
+        if (arr.length <= 1) {
+        return arr;
+        }
+    
+        const pivot = arr[0];
+        const left = [];
+        const right = [];
+    
+        for (let i = 1; i < arr.length; i++) {
+        if (arr[i] < pivot) {
+            left.push(arr[i]);
+        } else {
+            right.push(arr[i]);
+        }
+        }
+    
+        return [...quickSort(left), pivot, ...quickSort(right)];
+    }
+
     // Troca os valores exemplo [5,4] - [4,5]
     let swap = function(array,index1,index2){
         let aux = array[index1]
@@ -69,6 +137,9 @@ function ArrayList(){
 
 let arrayList = new ArrayList()
 
+arrayList.insert(8)
+arrayList.insert(7)
+arrayList.insert(6)
 arrayList.insert(5)
 arrayList.insert(4)
 arrayList.insert(3)
@@ -77,6 +148,9 @@ arrayList.insert(1)
 console.log(arrayList.toString())
 // arrayList.bubbleSort()
 // arrayList.selectionSort()
-arrayList.insertionSort()
-
+// arrayList.insertionSort()
+// arrayList.mergeSort()
+arrayList.quickSortFunc()
 console.log(arrayList.toString())
+
+  
